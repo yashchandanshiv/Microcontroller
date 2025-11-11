@@ -1,0 +1,34 @@
+#include<p18f4550.h>
+
+void msdelay(unsigned int time){
+  unsigned int i,j;
+  for(i=0;i<time;i++){
+    for(j=0;j<710;j++){
+      
+    }
+  }
+}
+
+void main(){
+  TRISCbits.TRISC2=0;
+  TRISD=0;
+  PR2=0xBB;
+  CCP1CON=0x0C;
+  T2CON=0x07;
+  PORTDbits.RD5=1;
+  PORTDbits.RD6=0;
+
+  while(1){
+    //duty Cycle=20%
+    CCP1CONbits.DC1B1=1;
+    CCP1CONbits.DC1B0=0;
+    CCPR1L=0x25;
+    msdelay(2000);
+
+    //duty Cycle=40%
+    CCP1CON.bits.DC1B1=1;
+    CCP1CON.bits.DC1B0=1;
+    CCPR1L=0x4A;
+    msdelay(2000);
+  }
+}
